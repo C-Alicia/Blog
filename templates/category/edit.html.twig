@@ -1,0 +1,35 @@
+{% extends 'layout/default.html.twig' %}
+
+{% block title %} Editer une categorie
+{% endblock %}
+
+{% block header %}
+	<header class="masthead" style="background-image: url('/assets/img/home-bg.jpg')">
+		<div class="container position-relative px-4 px-lg-5">
+			<div class="row gx-4 gx-lg-5 justify-content-center">
+				<div class="col-md-10 col-lg-8 col-xl-7">
+					<div class="site-heading">
+						<h1>Modifier la catégorie</h1>
+						<span class="subheading"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+{% endblock %}
+
+{% block content %}
+
+<div class="container px-4 px-lg-5 d.flex">
+		<div class="row gx-4 gx-lg-5 justify-content-center">
+			<form action="/category/edit/{{category.id}}" method = "POST">
+				<input type="text" name="nom" value="{{category.name}}">
+				<button type="submit" class="btn btn-dark btn-sm">
+					Modifier</button>
+			</form>
+		</div>
+	</div>
+  
+ {% endblock %}
+
+

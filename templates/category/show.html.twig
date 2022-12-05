@@ -1,0 +1,45 @@
+{% extends 'layout/default.html.twig' %}
+
+{% block title %}Show
+{% endblock %}
+
+{% block header %}
+	<header class="masthead" style="background-image: url('/assets/img/home-bg.jpg')">
+		<div class="container position-relative px-4 px-lg-5">
+			<div class="row gx-4 gx-lg-5 justify-content-center">
+				<div class="col-md-10 col-lg-8 col-xl-7">
+					<div class="site-heading">
+						<h1>Catégorie par article</h1>
+						<span class="subheading">{{category.name}}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+{% endblock %}
+
+
+{% block content %}
+
+	{% for post in posts %}
+
+		<div class="container px-4 px-lg-5">
+			<div class="row gx-4 gx-lg-5 justify-content-center">
+				<div
+					class="col-md-10 col-lg-8 col-xl-7">
+					<!-- Post preview-->
+					<div class="post-preview">
+
+						<h3 class="post-title">{{post.titre}}</h2>
+						<p class="post-subtitle">{{post.description}}</p>
+
+						<p class="post-meta">Posted by Start Bootstrap on
+							{{post.createdAt|date("m-d-Y")}}
+						</p>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+
+
+	{% endblock %}

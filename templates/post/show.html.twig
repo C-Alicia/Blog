@@ -1,0 +1,124 @@
+{% extends 'layout/default.html.twig' %}
+
+{% block title %}
+	Afficher un article
+{% endblock %}
+
+{% block header %}
+	<header class="masthead" style="background-image: url({{asset('uploads/images/' ~ post.imageFileName)}})">
+		<div class="container position-relative px-4 px-lg-5">
+			<div class="row gx-4 gx-lg-5 justify-content-center">
+				<div class="col-md-10 col-lg-8 col-xl-7">
+					<div class="site-heading">
+						<h1>
+							{{ post.titre }}
+						</h1>   
+						<span class="subheading">{{ post.description }}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+{% endblock %}
+
+{% block content %}
+	<div class="container px-4 px-lg-5 justify-content-center">
+		<div class="row gx-4 gx-lg-5 justify-content-center">
+			<div
+				class="col-md-10 col-lg-8 col-xl-7">
+				<!-- Post preview -->
+				<div class="post-preview">
+					<p class="post-text">
+						{{ post.contenu }}
+					</p>
+
+					<p class="post-text">
+						{{ post.category.name }}
+					</p>
+
+					<p class="post-meta">
+						Posted by
+						<a href="#!">Start Bootstrap</a>
+						le
+						{{ post.createdAt|date('m-d-Y') }}
+					</p>
+
+					<div class="likecontent justify-content-center">
+						<button id="btnlike" class="btn btn-link js-link" data-id="{{post.id}}">
+							<i class="fa-solid fa-thumbs-up"></i>
+							<span class="nblike">
+								{% if check| length < 0 %}
+									{{check| length}}
+								{% endif %}
+							</span>
+							<span class="js-label">J'aime</span>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		{% block javascript %}
+			<script>
+
+let btnlike = document.querySelector('#btnlike');
+let likenumber = document.querySelector('.nblike');
+
+btnlike.addEventListener('click', Postlike);
+
+function Postlike() {
+
+fetch('/like/create/' + postId).then(function (response) {
+
+
+return response.json();
+}).then(function (data) {
+console.log(data);
+likenumber.innerHTML = data.nblikes;
+if (data.nblikes < 1) {
+likenumber.style.display = "none"
+} else {
+likenumber.style.display = "inline-block";
+}
+})
+}
+			</script>
+
+		{% endblock %}
+
+
+		<form method="POST">
+			<div class="row gx-4 gx-lg-5 justify-content-center">
+				<div class="col-md-10 col-lg-8 col-xl-7">
+					<h2>
+						COMMENTAIRES :
+					</h2>
+					<br/>
+					<textarea name="" id="comments" data-id="{{ post.id }}" cols="30" rows="1"></textarea>
+					<button id="button" class="btn btn-dark btn-sm" type="button">
+						Envoyer
+					</button>
+				</div>
+			</div>
+		</form>
+		<hr/>
+		<div
+			id="listcomment">
+			{# On fait un tableau pour recuperer chaque element dans un tableau #}
+			{% for comment in post.comments %}
+				<div class="card alert alert-dark col-md-6 justify-content-center">
+					<div class="comments">
+						<p class="user">
+							{{ comment.user }}
+						</p>
+						<div class="content">
+							{{ comment.content }}
+						</div>
+						<span class="date">{{ comment.createdAt|date('m-d-Y') }}</span>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>
+<script src="../assets/js/scripts.js"></script>{% endblock %}

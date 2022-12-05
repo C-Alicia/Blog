@@ -1,0 +1,63 @@
+{% extends 'layout/default.html.twig' %}
+
+{% block title %}Show
+{% endblock %}
+
+{% block header %}
+	<header class="masthead" style="background-image: url('/assets/img/home-bg.jpg')">
+		<div class="container position-relative px-4 px-lg-5">
+			<div class="row gx-4 gx-lg-5 justify-content-center">
+				<div class="col-md-10 col-lg-8 col-xl-7">
+					<div class="site-heading">
+						<h1>Liste des catégories</h1>
+						<span class="subheading"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+{% endblock %}
+
+
+{% block content %}
+
+	{% for category in category %}
+
+		<div class="container px-4 px-lg-5 d.flex">
+			<div class="row gx-4 gx-lg-5 justify-content-center">
+				<div
+					class="col-md-10 col-lg-8 col-xl-7">
+					<!-- Post preview-->
+					<div class="post-preview">
+						<p class="post-subtitle">{{category.name}}</p>
+					</div>
+				</div>
+				<div class="d-flex justify-content-end">
+					<form action="/category/edit/{{category.id}}" method="POST">
+						<button onclick="return confirm('Voulez-vous modifier la catégorie ?')" class="btn btn-dark btn-sm">
+							Modifier</button>
+						|
+					</form>
+
+					<form action="/category/delete/{{category.id}}" method="POST">
+						<button onclick="return confirm('Voulez-vous supprimer la catégorie ?')" class="btn btn-danger btn-sm">Effacer</button>
+					</form>
+				</div>
+			</div>
+			<br>
+		</div>
+	{% endfor %}
+
+	<div class="container px-4 px-lg-5 d.flex">
+		<div class="row gx-4 gx-lg-5 justify-content-center">
+			<form action="/category/create" method: 'POST'>
+				<h4>Creer une nouvelle catégorie</h4>
+				<input type="text" name="name" id="add">
+				<button type="submit" class="btn btn-dark btn-sm">
+					Ajouter</button>
+			</form>
+		</div>
+	</div>
+
+
+{% endblock %}

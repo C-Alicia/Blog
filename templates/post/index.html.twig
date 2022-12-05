@@ -1,0 +1,55 @@
+{% extends 'layout/default.html.twig' %}
+
+{% block title %}Index
+{% endblock %}
+
+{% block header %}
+	<header class="masthead" style="background-image: url('assets/img/home-bg.jpg')">
+		<div class="container position-relative px-4 px-lg-5">
+			<div class="row gx-4 gx-lg-5 justify-content-center">
+				<div class="col-md-10 col-lg-8 col-xl-7">
+					<div class="site-heading">
+						<h1>Clean Blog</h1>
+						<span class="subheading">A Blog Theme by Start Bootstrap</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+{% endblock %}
+
+
+{% block content %}
+
+	<h1 class="row gx-4 gx-lg-5 justify-content-center">Liste des articles</h1>
+	<br>
+	{% for post in post %}
+		<div class="container px-4 px-lg-5">
+			<div class="row gx-4 gx-lg-5 justify-content-center">
+				<div
+					class="col-md-10 col-lg-8 col-xl-7">
+					<!-- Post preview-->
+					<div class="post-preview">
+						<a href="post/{{post.id}}">
+							<h2 class="post-title">{{post.titre}}</h2>
+							<h3 class="post-subtitle">{{post.description}}</h3>
+
+						</a>
+
+						<p class="post-meta">
+							Posted by
+							<a href="#!">Start Bootstrap</a>
+							on
+							{{post.createdAt|date("d-m-Y")}}
+							by  <a href="/category/{{post.category.id}}">{{post.category.name}}</a>
+							
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	{% endfor %}
+	<div class="d-flex justify-content-end mb-4">
+		<a class="btn btn-primary text-uppercase" href="#!">Older Posts →</a>
+	</div>
+{% endblock %}
